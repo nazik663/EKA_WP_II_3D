@@ -15,6 +15,12 @@
 .square{
 	position:absolute;
 }
+.coin{
+	position:absolute;
+    background-size: cover; /* Устанавливает размер фона так, чтобы он полностью покрывал элемент */
+    background-repeat: no-repeat; /* Запрещает повторение фонового изображения */
+
+}
 #pawn{
 	display:none;
 	position:absolute;

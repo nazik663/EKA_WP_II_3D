@@ -13,6 +13,7 @@ const size = 100,
   xPosition = -100,
   yPosition = -100,
   zPosition = -500; // Center position of the cube
+
 var map = [
 		   [0,0,1000,0,180,0,2000,600,"url('textures/1.jpg')", "ff0000"],
 		   [0,0,-1000,0,0,0,2000,600,"url('textures/1.jpg')", "ff0000"],
@@ -31,6 +32,48 @@ var map = [
   [xPosition + 50, yPosition, zPosition, 0, 90, 0, size, size, "", "#00FFFF"],
   // Left Face
   [xPosition - 50, yPosition, zPosition, 0, -90, 0, size, size, "", "#FF00FF"],
+];
+
+var treasurepos = [
+  [850,0,200],
+  [-400,0,-600],
+  [100,0,-800],
+  [-750,0,100],
+  [-300,0,300],
+  [80,0,-350],
+  [380,0,-100],
+  [-100,0,850],
+  [-550,0,320],
+  [300,0,-300],
+  [801, 0, -928],
+  [-898, 0, -170],
+  [-741, 0, -899],
+  [20, 0, 603],
+  [-366, 0, -604],
+  [418, 0, -997],
+  [-12, 0, 723],
+  [-151, 0, -100],
+  [678, 0, -469],
+  [-22, 0, 708],
+  [-558, 0, 852],
+  [-103, 0, 846],
+  [-196, 0, 398],
+  [728, 0, 644],
+  [946, 0, 843],
+  [-798, 0, 913],
+  [-438, 0, -647],
+  [-977, 0, -377],
+  [641, 0, -396],
+  [956, 0, 520]
+];
+
+var treasure = [
+// [width,height,image]
+[182,86,"url('textures/1.png')"],
+[200,50,"url('textures/2.png')"],
+[192,79,"url('textures/3.png')"],
+[175,109,"url('textures/4.png')"],
+[193,95,"url('textures/5.png')"]
 ];
 
 var PressBack = 0;
@@ -142,6 +185,7 @@ function update() {
 }
 
 function CreateNewWorld(){
+  CreateCoins()
 	for (let i = 0; i < map.length; i++){
 		
 		let newElement = document.createElement("div");
@@ -155,9 +199,7 @@ function CreateNewWorld(){
 		} else {
 			newElement.style.backgroundImage = map[i][8];
 		}
-		
-		console.log(map[i][8])
-		
+
 		newElement.style.transform = "translate3d(" +
 		(600 - map[i][6]/2 + map[i][0]) + "px," +
 		(400 - map[i][7]/2 + map[i][1]) + "px," +
@@ -165,9 +207,37 @@ function CreateNewWorld(){
 		"rotateX(" + map[i][3] + "deg)" +
 		"rotateY(" + map[i][4] + "deg)" +
 		"rotateZ(" + map[i][5] + "deg)";
-		
+
+    
+
 		world.append(newElement);
 	}
+}
+
+function CreateCoins() {
+  shuffle(treasurepos)
+  for (let i = 0; i < treasure.length; i++){
+		
+		let newElement = document.createElement("div");
+		newElement.className = "coin";
+		newElement.id = "coin" + i;
+		newElement.style.width = treasure[i][0] + "px";
+		newElement.style.height = treasure[i][1] + "px";
+    newElement.style.backgroundImage = treasure[i][2];
+		world.append(newElement);
+
+    newElement.style.transform = "translate3d(" +
+		(600 - treasure[i][0]/2 + treasurepos[i][0]) + "px," +
+		(400 - treasure[i][1]/2 + treasurepos[i][1]) + "px," +
+		                    (treasurepos[i][2]) + "px)";
+	}
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1)); // случайный индекс от 0 до i
+    [array[i], array[j]] = [array[j], array[i]]; // обмен элементов местами
+  }
 }
 
 CreateNewWorld();
