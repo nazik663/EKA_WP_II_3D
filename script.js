@@ -47,7 +47,7 @@ document.addEventListener("keydown", (event) => {
     PressBack = 7;
   }
   if (event.keyCode == 32 && onGround) {
-    PressUp = 5;
+    PressUp = 50;
     onGround = false;
   }
 });
@@ -94,7 +94,7 @@ function update() {
   MouseX = MouseY = 0;
 
   pawn.x = pawn.x + dx;
-  if (pawn.y >= -100) {
+  if (pawn.y >= -1000) {
     pawn.y = pawn.y + dy;
   }
 
